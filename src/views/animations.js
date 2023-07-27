@@ -1,8 +1,8 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Observer } from "gsap/Observer";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { TextPlugin } from "gsap/TextPlugin";
-import SplitType from "split-type";
+import { gsap } from 'gsap'
+import { Observer } from 'gsap/Observer'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { TextPlugin } from 'gsap/TextPlugin'
+// import SplitType from 'split-type'
 
-gsap.registerPlugin(Flip, ScrollTrigger, Observer, ScrollToPlugin, TextPlugin);
+gsap.registerPlugin(ScrollTrigger, Observer, ScrollToPlugin, TextPlugin)

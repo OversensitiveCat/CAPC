@@ -1,6 +1,8 @@
 import barba from '@barba/core'
 import barbaPrefetch from '@barba/prefetch'
 
+import { setLenis } from './views/lenis'
+
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual'
 }

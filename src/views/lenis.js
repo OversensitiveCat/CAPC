@@ -1,5 +1,4 @@
 import Lenis from '@studio-freight/lenis'
-
 ;('use strict')
 
 const lenis = new Lenis({
