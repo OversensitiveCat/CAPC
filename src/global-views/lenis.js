@@ -3,14 +3,12 @@ import Lenis from '@studio-freight/lenis'
 
 const lenis = new Lenis({
   ease: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
-  lerp: 0,
-  wheelMultiplier: 0,
-  smoothTouch: false,
+  lerp: 0.075,
+  wheelMultiplier: 0.35,
 })
 
 const setLenis = () => {
   'use strict'
-
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)

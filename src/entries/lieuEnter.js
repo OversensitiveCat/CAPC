@@ -1,0 +1,115 @@
+import { gsap } from 'gsap'
+import SplitType from 'split-type'
+
+const lieuEnter = () => {
+  // Header
+  const bar = document.querySelector('.header')
+  const logo = new SplitType('.header-logo', {
+    types: 'chars',
+    tagName: 'span',
+  })
+  let up = [logo.chars[0], logo.chars[2]],
+    down = [logo.chars[1], logo.chars[3]]
+
+  // Headings
+  const heading = new SplitType('.lieu-hero h1, .lieu-hero .h1-subheading', {
+    type: '.chars',
+    tagName: 'span',
+  })
+  let chars = [
+    heading.chars.slice(0, 4).reverse(),
+    heading.chars.slice(4, 5),
+    heading.chars.slice(5, 9),
+    heading.chars.slice(9),
+  ]
+
+  const para = new SplitType('.hero-para', {
+    type: '.words',
+    tagName: 'span',
+  })
+
+  window.addEventListener('resize', () => para.revert())
+
+  let tl = gsap.timeline({ paused: true })
+  tl.from(up, {
+    yPercent: -100,
+    opacity: 0,
+    duration: 0.3,
+    stagger: 0.2,
+  })
+    .from(
+      down,
+      { yPercent: 100, opacity: 0, duration: 0.3, stagger: 0.2 },
+      '-=0.3'
+    )
+    .from(
+      '.ham-open',
+      {
+        opacity: 0,
+        xPercent: -200,
+        duration: 0.6,
+      },
+      '-=0.6'
+    )
+    .from(
+      chars[0],
+      {
+        xPercent: -150,
+        yPercent: -75,
+        scale: 0.8,
+        rotate: 30,
+        opacity: 0,
+        duration: 0.35,
+        stagger: { amount: 0.45 },
+      },
+      '-=0.4'
+    )
+    .from(
+      chars[1],
+      {
+        yPercent: -75,
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.35,
+      },
+      '<'
+    )
+    .from(
+      chars[2],
+      {
+        xPercent: 150,
+        yPercent: -75,
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.35,
+        stagger: { amount: 0.45 },
+      },
+      '<'
+    )
+    .from(
+      chars[3],
+      {
+        opacity: 0,
+        duration: 0.2,
+        stagger: { amount: 0.5 },
+      },
+      '-=0.2'
+    )
+    .from(
+      para.words,
+      {
+        opacity: 0,
+        yPercent: 80,
+        xPercent: -10,
+        duration: 0.6,
+        stagger: { amount: 1.5 },
+      },
+      '<'
+    )
+
+  gsap.set(bar, { opacity: 1 })
+  gsap.set('.lieu-hero', { opacity: 1 })
+  tl.play()
+}
+
+export default lieuEnter
