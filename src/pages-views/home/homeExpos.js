@@ -13,7 +13,11 @@ function reverse(item) {
   item
     .querySelector('.home-expo-item-link')
     .classList.add('home-expo-item-link-reversed')
+
   item.querySelector('.ticket-hole').classList.add('ticket-hole-reversed')
+
+  let main = item.querySelector('.home-expo-item-main')
+  gsap.set(main, { marginLeft: -1 })
 }
 
 const expos = () => {

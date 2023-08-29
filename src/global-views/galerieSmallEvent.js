@@ -1,5 +1,4 @@
 import { gsap } from 'gsap'
-/* eslint-disable no-unused-vars */
 
 let scrollX, scrollMax, currentX
 let snap = gsap.utils.snap(0.1)

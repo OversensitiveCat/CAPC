@@ -3,11 +3,19 @@ import imagesLoaded from 'imagesloaded'
 
 import { lenis } from '../global-views/lenis'
 import navMove from '../navigation/navMove'
+import { isDesktop } from '../utilities/utilities'
 
 const navLeave = (data, done) => {
-  const links = gsap.utils.toArray('.nav-link, .menu-credits-link')
-  let socials = gsap.utils.toArray('.social-link').reverse()
-  let chars = []
+  let desktop = isDesktop()
+
+  let links,
+    chars = [],
+    socials = gsap.utils.toArray('.social-link').reverse()
+
+  desktop
+    ? (links = gsap.utils.toArray('.nav-link, .menu-credits-link'))
+    : (links = gsap.utils.toArray('.nav-link'))
+
   links.forEach((link) => {
     chars.push(Array.from(link.querySelectorAll('.char')).reverse())
   })
@@ -15,7 +23,6 @@ const navLeave = (data, done) => {
   let tl = gsap.timeline()
   tl.to('.white-dash', { width: '0%', duration: 0.7 })
     .to('.nav-arrow-hide', { xPercent: 0, duration: 0.7 }, '<')
-    .to('.nav-photo-hide', { xPercent: 0, duration: 0.7 }, '<')
     .to(
       socials,
       {
@@ -49,6 +56,10 @@ const navLeave = (data, done) => {
     )
   })
 
+  if (desktop) {
+    tl.to('.nav-photo-hide', { xPercent: 0, duration: 0.7 }, 0)
+  }
+
   tl.then(() => {
     let imgLoad = imagesLoaded(data.next.container)
     imgLoad.on('done', function () {
@@ -60,12 +71,15 @@ const navLeave = (data, done) => {
 }
 
 const navEnter = (pageEnter) => {
-  window.addEventListener('mousemove', navMove)
+  let desktop = isDesktop()
+  if (desktop) {
+    window.addEventListener('mousemove', navMove)
+  }
 
   let tl = gsap.timeline()
   tl.to('.menu', {
-    borderTopLeftRadius: '30%',
-    borderTopRightRadius: '30%',
+    borderTopLeftRadius: desktop ? '30%' : 45,
+    borderTopRightRadius: desktop ? '30%' : 45,
     yPercent: 100,
     duration: 2,
     ease: 'power3.inOut',

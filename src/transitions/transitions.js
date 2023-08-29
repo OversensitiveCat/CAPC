@@ -19,14 +19,14 @@ const transitionLeave = (data, done) => {
       .to(mobilePath, {
         attr: { d: 'M 0 0 C 3 0 6 0 9 0 V -8 C 6 -6 3 -8 0 -6 V 0' },
         ease: 'power1.in',
-        duration: 1,
+        duration: 0.8,
       })
       .to(mobilePath, {
         attr: {
           d: 'M 0 0 C 3 0 6 0 9 0 V -16 C 6 -16 3 -16 0 -16 V 0',
         },
         ease: 'power2.out',
-        duration: 1,
+        duration: 0.8,
       })
   } else {
     tl.set(container, { zIndex: 100 })

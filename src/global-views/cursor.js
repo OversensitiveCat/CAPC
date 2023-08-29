@@ -1,7 +1,10 @@
 import { gsap } from 'gsap'
 
+import { touchDevice } from '../utilities/utilities'
+
+let pointer = document.querySelector('.cursor')
+
 const cursor = () => {
-  let cursor = document.querySelector('.cursor')
   let snap = gsap.utils.snap(5)
 
   // function isLink(tar) {
@@ -18,10 +21,16 @@ const cursor = () => {
   function cursorEvent(e) {
     x = snap(e.clientX - 7)
     y = snap(e.clientY - 8)
-    gsap.to(cursor, { top: y, left: x, duration: 0.4 })
+    gsap.to(pointer, { top: y, left: x, duration: 0.4 })
   }
 
   window.addEventListener('mousemove', cursorEvent)
 }
 
-export default cursor
+const setCursor = () => {
+  if (touchDevice()) {
+    return gsap.set(pointer, { display: 'none' })
+  } else return cursor()
+}
+
+export default setCursor

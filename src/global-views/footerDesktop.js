@@ -7,7 +7,7 @@ const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
   // Timelines
   let tlBottom = gsap.timeline({ paused: true })
   tlBottom
-    .from('.footer .dash', { width: 0, duration: 0.6 })
+    .from('.footer .dash', { xPercent: -100, duration: 0.6 })
     .from(
       chars[2],
       {
@@ -88,7 +88,7 @@ const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
       '<'
     )
     .from(
-      '.footer-bottom > .footer-link-small',
+      smallLinks,
       {
         opacity: 0,
         xPercent: -20,
@@ -108,7 +108,6 @@ const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
 
   let tlTop = gsap.timeline({ paused: true })
   tlTop
-    .from('.footer-dash-pointed', { width: 0, duration: 0.6 })
     .from(
       chars[0],
       {
@@ -170,9 +169,9 @@ const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
       },
       '<'
     )
+    .from('.footer-dash-pointed', { height: 0, duration: 0.6 }, '-=0.6')
 
   // Triggers
-
   let triggerBottom = text[5][0].getBoundingClientRect().bottom
   let triggerTop =
     document.querySelector('.footer-top').getBoundingClientRect().bottom - 30

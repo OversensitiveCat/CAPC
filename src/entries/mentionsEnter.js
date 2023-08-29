@@ -1,6 +1,8 @@
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
 
+import { touchDevice } from '../utilities/utilities'
+
 const mentionsEnter = () => {
   // Header
   const bar = document.querySelector('.header')
@@ -212,7 +214,10 @@ const mentionsEnter = () => {
       tlShape.play()
     })
   }
-  shapeContainer.addEventListener('click', replay)
+
+  if (!touchDevice()) {
+    shapeContainer.addEventListener('click', replay)
+  }
 }
 
 export default mentionsEnter

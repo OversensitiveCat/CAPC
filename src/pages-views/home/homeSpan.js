@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-import debounce from '../../global-views/debounce'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -116,30 +113,27 @@ const span = () => {
   const underlineModel = document.querySelector('.span-underline-container')
   const arrowModel = document.querySelector('.span-arrow-container svg')
 
-  function init() {
-    let spans = gsap.utils.toArray('.span-link')
-    spans.forEach((s) => underline(s, underlineModel))
+  let spans = gsap.utils.toArray('.span-link')
+  let spansArrow = spans.filter((span) => {
+    if (span.classList.contains('span-link-arrow')) {
+      return true
+    }
+  })
 
-    let spansArrow = spans.filter((span) => {
-      if (span.classList.contains('span-link-arrow')) {
-        return true
-      }
-    })
-    spansArrow.forEach((s) => arrow(s, arrowModel))
-  }
-  init()
+  spans.forEach((s) => underline(s, underlineModel))
+  spansArrow.forEach((s) => arrow(s, arrowModel))
 
-  function handleResize() {
-    // Remove all
-    let containers = gsap.utils.toArray('.span-link .span-underline-container')
-    containers.forEach((container) => container.remove())
+  // function handleResize() {
+  //   // Remove all
+  //   let containers = gsap.utils.toArray('.span-link .span-underline-container')
+  //   containers.forEach((container) => container.remove())
 
-    // Add again
-    init()
-  }
+  //   // Add again
+  //   init()
+  // }
 
-  const debouncedResizeHandler = debounce(handleResize, 1000)
-  window.addEventListener('resize', debouncedResizeHandler)
+  // const debouncedResizeHandler = debounce(handleResize, 1000)
+  // window.addEventListener('resize', debouncedResizeHandler)
 }
 
 export default span

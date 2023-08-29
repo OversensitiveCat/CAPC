@@ -1,6 +1,8 @@
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
 
+import { isDesktop } from '../utilities/utilities'
+
 const navInit = () => {
   let text = new SplitType('.nav-text, .menu-credits-link', {
     types: 'chars',
@@ -11,12 +13,14 @@ const navInit = () => {
     chars.push(link.querySelectorAll('.char'))
   })
 
+  let desktop = isDesktop()
   // From state
   gsap.set('.menu', {
-    borderTopLeftRadius: '30%',
-    borderTopRightRadius: '30%',
+    borderTopLeftRadius: desktop ? '30%' : 45,
+    borderTopRightRadius: desktop ? '30%' : 45,
     yPercent: 100,
   })
+
   chars.forEach((c) => gsap.set(c, { xPercent: -100, opacity: 0 }))
   gsap.set('.social-link', { xPercent: -100, opacity: 0 })
   gsap.set('.white-dash', { width: 0 })

@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { gsap } from 'gsap'
 
+import { touchDevice } from '../../utilities/utilities'
 import expos from './homeExpos'
 import header from './homeHeader'
 import shapes from './homeShapes'
@@ -11,7 +11,9 @@ const home = () => {
   expos()
   shapes()
 
-  gsap.delayedCall(1, span)
+  if (!touchDevice()) {
+    gsap.delayedCall(1.5, span)
+  }
 }
 
 export default home

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -8,7 +7,7 @@ const footerMob = (box, chars, text, dash, smallLinks, svg) => {
   // Timelines
   let tlBottom = gsap.timeline({ paused: true })
   tlBottom
-    .from(dash[3], { width: 0, duration: 0.6 })
+    .from(dash[3], { xPercent: -100, duration: 0.6 })
     .from(
       chars[5],
       {
@@ -59,8 +58,8 @@ const footerMob = (box, chars, text, dash, smallLinks, svg) => {
 
   let tlMiddle = gsap.timeline({ paused: true })
   tlMiddle
-    .from(dash[0], { width: 0, duration: 0.6 })
-    .from(dash[1], { width: 0, duration: 0.6 }, '<')
+    .from(dash[0], { xPercent: -100, duration: 0.6 })
+    .from(dash[1], { xPercent: -100, duration: 0.6 }, '<')
     .from(
       chars[2],
       {
@@ -163,6 +162,7 @@ const footerMob = (box, chars, text, dash, smallLinks, svg) => {
     ScrollTrigger.create({
       trigger: '.container',
       start: `bottom ${tri}`,
+      invalidateOnRefresh: true,
       onEnter: () => tl.play(),
     })
 

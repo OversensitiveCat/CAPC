@@ -1,6 +1,7 @@
 import { gsap } from 'gsap'
 
 import { lenis } from '../global-views/lenis'
+import { isDesktop } from '../utilities/utilities'
 
 const navOpen = () => {
   lenis.stop()
@@ -8,8 +9,16 @@ const navOpen = () => {
   gsap.set(ham, { xPercent: 0, opacity: 1 })
   let h = window.innerHeight
   gsap.set(ham, { y: -h })
-  const links = gsap.utils.toArray('.nav-link, .menu-credits-link')
-  let chars = []
+
+  let desktop = isDesktop()
+
+  let links,
+    chars = []
+
+  desktop
+    ? (links = gsap.utils.toArray('.nav-link, .menu-credits-link'))
+    : (links = gsap.utils.toArray('.nav-link'))
+
   links.forEach((link) => {
     chars.push(link.querySelectorAll('.char'))
   })
@@ -36,7 +45,6 @@ const navOpen = () => {
     )
     .to('.white-dash', { width: '100%', duration: 0.7 }, 2)
     .to('.nav-arrow-hide', { xPercent: 100, duration: 0.7 }, 2)
-    .to('.nav-photo-hide', { xPercent: 100, duration: 0.7 }, 2)
     .to(
       '.social-link',
       {
@@ -59,6 +67,10 @@ const navOpen = () => {
       2
     )
   })
+
+  if (desktop) {
+    tl.to('.nav-photo-hide', { xPercent: 100, duration: 0.7 }, 2)
+  }
 }
 
 //
@@ -66,9 +78,17 @@ const navOpen = () => {
 const navClose = () => {
   let ham = document.querySelector('.ham-close')
   let h = window.innerHeight
-  const links = gsap.utils.toArray('.nav-link, .menu-credits-link')
-  let socials = gsap.utils.toArray('.social-link').reverse()
-  let chars = []
+
+  let desktop = isDesktop()
+
+  let links,
+    chars = [],
+    socials = gsap.utils.toArray('.social-link').reverse()
+
+  desktop
+    ? (links = gsap.utils.toArray('.nav-link, .menu-credits-link'))
+    : (links = gsap.utils.toArray('.nav-link'))
+
   links.forEach((link) => {
     chars.push(Array.from(link.querySelectorAll('.char')).reverse())
   })
@@ -76,7 +96,6 @@ const navClose = () => {
   let tl = gsap.timeline()
   tl.to('.white-dash', { width: '0%', duration: 0.7 })
     .to('.nav-arrow-hide', { xPercent: 0, duration: 0.7 }, '<')
-    .to('.nav-photo-hide', { xPercent: 0, duration: 0.7 }, '<')
     .to(
       socials,
       {
@@ -88,8 +107,8 @@ const navClose = () => {
       '<'
     )
     .to('.menu', {
-      borderTopLeftRadius: '30%',
-      borderTopRightRadius: '30%',
+      borderTopLeftRadius: desktop ? '30%' : 45,
+      borderTopRightRadius: desktop ? '30%' : 45,
       yPercent: 100,
       duration: 2,
       ease: 'power3.inOut',
@@ -118,6 +137,10 @@ const navClose = () => {
       0
     )
   })
+
+  if (desktop) {
+    tl.to('.nav-photo-hide', { xPercent: 0, duration: 0.7 }, 0)
+  }
   tl.then(() => lenis.start())
 }
 

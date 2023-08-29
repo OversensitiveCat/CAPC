@@ -4,7 +4,7 @@ import barbaPrefetch from '@barba/prefetch'
 import buttons from './animations/buttons'
 import imgs from './animations/imgs'
 import press from './animations/press'
-import { quote, quoteRemove } from './animations/quote'
+import quote from './animations/quote'
 import sectionHeadings from './animations/sectionHeadings'
 import aboutEnter from './entries/aboutEnter'
 import expoItemEnter from './entries/expoItemEnter'
@@ -13,7 +13,7 @@ import homeEnter from './entries/homeEnter'
 import infosEnter from './entries/infosEnter'
 import lieuEnter from './entries/lieuEnter'
 import mentionsEnter from './entries/mentionsEnter'
-import cursor from './global-views/cursor'
+import setCursor from './global-views/cursor'
 import footer from './global-views/footer'
 import {
   galerieSmallEvent,
@@ -29,19 +29,22 @@ import expoItem from './pages-views/expoItem'
 import expos from './pages-views/expos'
 import home from './pages-views/home/home'
 import infos from './pages-views/infos'
-import lieu from './pages-views/lieu'
+import lieu from './pages-views/lieu/lieu'
 import mentions from './pages-views/mentions'
 import { navLeave, navEnter } from './transitions/navTransitions'
 import { transitionEnter, transitionLeave } from './transitions/transitions'
+import { touchDevice } from './utilities/utilities'
 
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual'
 }
 
-navHover()
+if (!touchDevice()) {
+  navHover()
+}
 navInit()
 setLenis()
-cursor()
+setCursor()
 
 window.addEventListener('unload', () => window.scrollTo(0, 0))
 
@@ -54,7 +57,7 @@ barba.use(barbaPrefetch)
 barba.init({
   timeout: 4000,
   preventRunning: true,
-  debug: true,
+  // debug: true,
   views: [
     {
       namespace: 'home',
@@ -62,9 +65,6 @@ barba.init({
         home()
         buttons()
         quote()
-      },
-      beforeLeave() {
-        quoteRemove()
       },
     },
     {
@@ -75,9 +75,6 @@ barba.init({
         imgs()
         quote()
       },
-      beforeLeave() {
-        quoteRemove()
-      },
     },
     {
       namespace: 'about',
@@ -87,9 +84,6 @@ barba.init({
         imgs()
         press()
         quote()
-      },
-      beforeLeave() {
-        quoteRemove()
       },
     },
     {
@@ -121,6 +115,7 @@ barba.init({
       afterEnter() {
         infos()
         sectionHeadings()
+        imgs()
       },
     },
   ],
@@ -323,8 +318,6 @@ barba.init({
     },
     {
       name: 'self',
-      from: { namespace: ['home'] },
-      to: { namespace: ['home'] },
       leave(data) {
         if (data.trigger.classList.contains('nav-link')) {
           const done = this.async()

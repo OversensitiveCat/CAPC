@@ -4,7 +4,7 @@ import SplitType from 'split-type'
 
 gsap.registerPlugin(ScrollTrigger)
 
-import debounce from '../global-views/debounce'
+// import debounce from '../global-views/debounce'
 
 let paras
 
@@ -31,27 +31,27 @@ const quoteAnim = (para) => {
   gsap.set(para, { opacity: 1 })
 }
 
-const event = () => {
-  if (paras !== undefined) {
-    paras.revert()
-  }
+const quote = () => {
+  // if (paras !== undefined) {
+  //   paras.revert()
+  // }
   paras = new SplitType('[data-anim="quote"]', {
-    tagName: 'div',
+    tagName: 'span',
     types: 'words',
   })
 
   paras.elements.forEach((para) => quoteAnim(para))
 }
 
-const debouncedResizeHandler = debounce(event, 250)
+// const debouncedResizeHandler = debounce(event, 250)
 
-const quote = () => {
-  event()
-  window.addEventListener('resize', debouncedResizeHandler)
-}
+// const quote = () => {
+//   event()
+//   window.addEventListener('resize', debouncedResizeHandler)
+// }
 
-const quoteRemove = () => {
-  window.removeEventListener('resize', debouncedResizeHandler)
-}
+// const quoteRemove = () => {
+//   window.removeEventListener('resize', debouncedResizeHandler)
+// }
 
-export { quote, quoteRemove }
+export default quote

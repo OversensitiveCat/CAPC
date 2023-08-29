@@ -2,6 +2,7 @@ import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import SplitType from 'split-type'
 
+import { touchDevice } from '../utilities/utilities'
 import footerDesktop from './footerDesktop'
 import footerMob from './footerMob'
 
@@ -40,17 +41,20 @@ const footer = () => {
       document.querySelector('.body').scrollHeight / window.innerHeight
     ) / 4
 
-  let svgHover = gsap.timeline({ paused: true })
-  svgHover
-    .to(svg.arrow, { stroke: '#e65d35', ease: 'none', duration: 0.2 })
-    .to(svg.circle, { stroke: '#e65d35', ease: 'none', duration: 0.2 }, '<')
-    .to(svg.button, { yPercent: -10, ease: 'none', duration: 0.3 }, '<')
-
-  svg.button.addEventListener('mouseenter', () => svgHover.play())
-  svg.button.addEventListener('mouseleave', () => svgHover.reverse())
   svg.button.addEventListener('click', () =>
     gsap.to(window, { scrollTo: 0, duration: d, ease: 'power2.inOut' })
   )
+
+  if (!touchDevice()) {
+    let svgHover = gsap.timeline({ paused: true })
+    svgHover
+      .to(svg.arrow, { stroke: '#e65d35', ease: 'none', duration: 0.2 })
+      .to(svg.circle, { stroke: '#e65d35', ease: 'none', duration: 0.2 }, '<')
+      .to(svg.button, { yPercent: -10, ease: 'none', duration: 0.3 }, '<')
+
+    svg.button.addEventListener('mouseenter', () => svgHover.play())
+    svg.button.addEventListener('mouseleave', () => svgHover.reverse())
+  }
 
   // Responsive timelines
   let mm = gsap.matchMedia()
