@@ -1,9 +1,9 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import { touchDevice } from '../../utilities/utilities'
 import spanDesktop from './spanDesktop'
 import spanMobile from './spanMobile'
+import { touchDevice } from '../../utilities/utilities'
 
 gsap.registerPlugin(ScrollTrigger)
 

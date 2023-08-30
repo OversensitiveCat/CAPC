@@ -1,7 +1,7 @@
-import { touchDevice } from '../../utilities/utilities'
 import exposEyes from './exposEyes'
 import exposFadeIn from './exposFadeIn'
 import exposHover from './exposHover'
+import { touchDevice } from '../../utilities/utilities'
 
 const expos = () => {
   exposEyes()

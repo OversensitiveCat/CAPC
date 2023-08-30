@@ -1,11 +1,11 @@
 import SplitType from 'split-type'
 
-import quote from '../../animations/quote'
 import { homeColor } from './homeColor'
 import expos from './homeExpos'
 import header from './homeHeader'
 import shapes from './homeShapes'
 import span from './homeSpan'
+import quote from '../../animations/quote'
 
 const home = () => {
   const paras = new SplitType('[data-anim="quote"]', {
