@@ -5,7 +5,10 @@ import SplitType from 'split-type'
 gsap.registerPlugin(ScrollTrigger)
 
 const sectionHeadings = () => {
-  const headings = new SplitType('[data-anim="section-heading"]', {
+  const arr = gsap.utils.toArray('[data-anim="section-heading"]')
+  if (!arr.length) return
+
+  const headings = new SplitType(arr, {
     types: 'chars',
     tagName: 'span',
   })

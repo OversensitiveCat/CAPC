@@ -1,7 +1,7 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import press from '../animations/press'
+import press from '../../animations/press'
 
 gsap.registerPlugin(ScrollTrigger)
 

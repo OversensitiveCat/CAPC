@@ -1,17 +1,10 @@
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
 
-const exposEnter = () => {
-  // Header
-  const bar = document.querySelector('.header')
-  const logo = new SplitType('.header-logo', {
-    types: 'chars',
-    tagName: 'span',
-  })
-  let up = [logo.chars[0], logo.chars[2]],
-    down = [logo.chars[1], logo.chars[3]]
+import header from '../animations/header'
+import { touchDevice } from '../utilities/utilities'
 
-  // Headings
+const exposEnter = () => {
   const heading = new SplitType('.expos-hero h1, .expos-hero .h1-subheading', {
     type: '.chars',
     tagName: 'span',
@@ -28,40 +21,16 @@ const exposEnter = () => {
     tagName: 'span',
   })
 
-  let tl = gsap.timeline({ paused: true })
-  tl.from(up, {
-    yPercent: -100,
+  let tl = gsap.timeline({ paused: true, delay: 0.2 })
+  tl.from(chars[0], {
+    xPercent: -150,
+    yPercent: -75,
+    scale: 0.8,
+    rotate: 30,
     opacity: 0,
-    duration: 0.3,
-    stagger: 0.2,
+    duration: 0.35,
+    stagger: { amount: 0.45 },
   })
-    .from(
-      down,
-      { yPercent: 100, opacity: 0, duration: 0.3, stagger: 0.2 },
-      '-=0.3'
-    )
-    .from(
-      '.ham-open',
-      {
-        opacity: 0,
-        xPercent: -200,
-        duration: 0.6,
-      },
-      '-=0.6'
-    )
-    .from(
-      chars[0],
-      {
-        xPercent: -150,
-        yPercent: -75,
-        scale: 0.8,
-        rotate: 30,
-        opacity: 0,
-        duration: 0.35,
-        stagger: { amount: 0.45 },
-      },
-      '-=0.4'
-    )
     .from(
       chars[1],
       {
@@ -158,7 +127,6 @@ const exposEnter = () => {
       0.3
     )
 
-  gsap.set(bar, { opacity: 1 })
   gsap.set('.expos-hero', { opacity: 1 })
   gsap.set(eyeOpen, { opacity: 1 })
   gsap.set('#next-expos h2', { opacity: 1 })
@@ -170,11 +138,13 @@ const exposEnter = () => {
       open.play()
     })
   }
+  if (!touchDevice()) {
+    eyeOpen.addEventListener('click', replay)
+  }
 
-  eyeOpen.addEventListener('click', replay)
-
+  header()
   tl.play()
-  gsap.delayedCall(1, () => open.play())
+  gsap.delayedCall(1.2, () => open.play())
 }
 
 export default exposEnter

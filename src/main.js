@@ -25,9 +25,11 @@ import nav from './navigation/nav'
 import navHover from './navigation/navHover'
 import navInit from './navigation/navInit'
 import about from './pages-views/about'
-import expoItem from './pages-views/expoItem'
-import expos from './pages-views/expos'
+import expoItem from './pages-views/expo-page/expoItem'
+import expoItemBeforeEnter from './pages-views/expo-page/expoItemBeforeEnter'
+import expos from './pages-views/expos/expos'
 import home from './pages-views/home/home'
+import { homeClean } from './pages-views/home/homeColor'
 import infos from './pages-views/infos'
 import lieu from './pages-views/lieu/lieu'
 import mentions from './pages-views/mentions'
@@ -57,14 +59,16 @@ barba.use(barbaPrefetch)
 barba.init({
   timeout: 4000,
   preventRunning: true,
-  // debug: true,
   views: [
     {
       namespace: 'home',
       afterEnter() {
         home()
         buttons()
-        quote()
+        imgs()
+      },
+      afterLeave() {
+        homeClean()
       },
     },
     {
@@ -95,8 +99,12 @@ barba.init({
     },
     {
       namespace: 'expo-page',
+      beforeEnter() {
+        expoItemBeforeEnter()
+      },
       afterEnter() {
         expoItem()
+        sectionHeadings()
         galerieSmallEvent()
         galerieSmallAddKeyEvent()
       },

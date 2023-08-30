@@ -1,78 +1,85 @@
-/* eslint-disable no-unused-vars */
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const trigger = (para, tl) => {
+const trigger = (tri, tl) => {
   ScrollTrigger.create({
-    trigger: para,
+    trigger: tri,
     start: 'top 75%',
     onEnter: () => tl.play(),
   })
   ScrollTrigger.create({
-    trigger: para,
+    trigger: tri,
     start: '-50% bottom',
     onLeaveBack: () => tl.pause(0),
   })
 }
 
-const one = (para) => {
-  let tl = gsap.timeline({ paused: true })
-  tl.from('.home-quote1-shape1', { xPercent: -100, opacity: 0, duration: 1 })
-    .from(
-      '.home-quote1-shape2',
-      { yPercent: -100, opacity: 0, duration: 1 },
-      '<'
-    )
-    .from(
-      '.home-quote1-shape3',
-      { yPercent: 100, opacity: 0, duration: 1 },
-      '<'
-    )
+const one = (tri) => {
+  let mm = gsap.matchMedia(),
+    breakPoint = 768
+  mm.add(
+    {
+      isDesktop: `(min-width: ${breakPoint}px)`,
+      isMobile: `(max-width: ${breakPoint - 1}px)`,
+    },
+    (context) => {
+      let { isDesktop, isMobile } = context.conditions
 
-  trigger(para, tl)
-}
+      let white = document.querySelector('#home-shape1-circle-white'),
+        pink = document.querySelector('.home-shape1-circles-left'),
+        yellow = document.querySelector('.home-shape1-circles-right')
 
-const two = (para) => {
-  let white = document.querySelector('#home-quote2-circle-white'),
-    pink = document.querySelector('.home-quote2-circles-left'),
-    yellow = document.querySelector('.home-quote2-circles-right')
+      const pinkCircles = gsap.utils
+        .toArray('.home-shape1-circle-pink-path')
+        .reverse()
 
-  const pinkCircles = gsap.utils
-    .toArray('.home-quote2-circle-pink-path')
-    .reverse()
+      // From state
+      gsap.set(white, { xPercent: isDesktop ? -125 : -150 })
+      gsap.set(pink, { xPercent: -25 })
+      if (isMobile) {
+        gsap.set(yellow, { xPercent: 25 })
+      }
 
-  gsap.set(white, { xPercent: -150 })
-  gsap.set(pink, { xPercent: -25 })
-  gsap.set(yellow, { xPercent: 25 })
-  let tl = gsap.timeline({ paused: true })
-  tl.from(pinkCircles, {
-    opacity: 0,
-    scale: 0.95,
-    stagger: { amount: 0.5 },
-  })
-    .from(
-      yellow,
-      {
+      let tl = gsap.timeline({ paused: true })
+      tl.from(pinkCircles, {
         opacity: 0,
-        scale: 0.5,
-        duration: 1,
-      },
-      '<'
-    )
-    .to(pink, { xPercent: 25, ease: 'power1.inOut', duration: 0.7 })
-    .to(white, { xPercent: -50, ease: 'power1.inOut', duration: 0.7 }, '<')
-    .to(yellow, { xPercent: -25, ease: 'power1.inOut', duration: 0.7 }, '<')
+        scale: 0.95,
+        stagger: { amount: 0.5 },
+      })
+        .from(
+          yellow,
+          {
+            opacity: 0,
+            scale: 0.5,
+            duration: 1,
+          },
+          '<'
+        )
+        .to(pink, { xPercent: 25, ease: 'power1.inOut', duration: 0.7 })
+        .to(white, { xPercent: -50, ease: 'power1.inOut', duration: 0.7 }, '<')
+        .to(yellow, { xPercent: -25, ease: 'power1.inOut', duration: 0.7 }, '<')
 
-  trigger(para, tl)
+      trigger(tri, tl)
+    }
+  )
 }
 
-const three = (para) => {
+const two = (tri) => {
   let tl = gsap.timeline({ paused: true })
-  tl.from('.home-quote3-circle-red', { yPercent: -50, opacity: 0, duration: 1 })
+  tl.from('.home-shape2-1', { xPercent: -100, opacity: 0, duration: 1 })
+    .from('.home-shape2-2', { yPercent: -100, opacity: 0, duration: 1 }, '<')
+    .from('.home-shape2-3', { yPercent: 100, opacity: 0, duration: 1 }, '<')
+
+  trigger(tri, tl)
+}
+
+const three = (tri) => {
+  let tl = gsap.timeline({ paused: true })
+  tl.from('.home-shape3-circle-red', { yPercent: -50, opacity: 0, duration: 1 })
     .from(
-      '.home-quote3-blue-dash-container',
+      '.home-shape3-blue-dash-container',
       { yPercent: 50, opacity: 0, duration: 1 },
       '<'
     )
@@ -87,15 +94,16 @@ const three = (para) => {
       '<'
     )
 
-  trigger(para, tl)
+  trigger(tri, tl)
 }
 
 const shapes = () => {
-  const paras = gsap.utils.toArray('.home-quote-para')
-
-  one(paras[0])
-  two(paras[1])
-  three(paras[2])
+  const containers = gsap.utils.toArray(
+    '.home-shape1, .home-shape2, .home-shape3'
+  )
+  one(containers[0])
+  two(containers[1])
+  three(containers[2])
 }
 
 export default shapes

@@ -6,8 +6,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 // import debounce from '../global-views/debounce'
 
-let paras
-
 const quoteAnim = (para) => {
   let words = para.querySelectorAll('.word')
   let tl = gsap.timeline({ paused: true })
@@ -31,16 +29,14 @@ const quoteAnim = (para) => {
   gsap.set(para, { opacity: 1 })
 }
 
-const quote = () => {
-  // if (paras !== undefined) {
-  //   paras.revert()
-  // }
-  paras = new SplitType('[data-anim="quote"]', {
-    tagName: 'span',
-    types: 'words',
-  })
-
-  paras.elements.forEach((para) => quoteAnim(para))
+const quote = (paras) => {
+  if (paras == undefined) {
+    paras = new SplitType('[data-anim="quote"]', {
+      tagName: 'span',
+      types: 'words',
+    })
+    return paras.elements.forEach((para) => quoteAnim(para))
+  } else return paras.forEach((para) => quoteAnim(para))
 }
 
 // const debouncedResizeHandler = debounce(event, 250)

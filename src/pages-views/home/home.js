@@ -1,19 +1,24 @@
-import { gsap } from 'gsap'
+import SplitType from 'split-type'
 
-import { touchDevice } from '../../utilities/utilities'
+import quote from '../../animations/quote'
+import { homeColor } from './homeColor'
 import expos from './homeExpos'
 import header from './homeHeader'
 import shapes from './homeShapes'
 import span from './homeSpan'
 
 const home = () => {
+  const paras = new SplitType('[data-anim="quote"]', {
+    tagName: 'span',
+    types: 'words',
+  })
+
+  span()
+  quote(paras.elements)
   header()
   expos()
   shapes()
-
-  if (!touchDevice()) {
-    gsap.delayedCall(1.5, span)
-  }
+  homeColor()
 }
 
 export default home
