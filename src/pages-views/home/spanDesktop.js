@@ -1,46 +1,60 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import { debounce } from '../../utilities/utilities'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const spanDesktop = (span, lineModel, arrowModel) => {
-  let h = span.offsetHeight
-  let w = span.offsetWidth
+  let h, w, f
 
   // Line
   const line = lineModel.cloneNode(true)
   let svgLine = line.querySelector('svg')
   let pathLine = svgLine.querySelector('path')
-
   span.appendChild(line)
-
-  gsap.set(line, {
-    top: 14,
-    width: w + 8,
-    height: h,
-    marginLeft: -4,
-    overflow: 'hidden',
-  })
-
-  let m = (300 - w) / 2
-  gsap.set(svgLine, {
-    width: '300px',
-    marginLeft: `-${m}`,
-  })
-
   // Arrow
   const svgArrow = arrowModel.cloneNode(true)
   let pathArrow = svgArrow.querySelector('path')
   svgArrow.classList.add('word')
   span.appendChild(svgArrow)
+  gsap.set(svgArrow, { position: 'absolute' })
 
-  gsap.set(svgArrow, {
-    height: h,
-    width: 15,
-    opacity: 1,
-    right: -19,
-    bottom: -2,
-  })
+  function size() {
+    f = gsap.getProperty(span, 'fontSize')
+    h = span.offsetHeight
+    w = span.offsetWidth
+
+    gsap.set(span, { marginRight: f * 1.2 })
+
+    gsap.set(line, {
+      top: h / 2,
+      width: w + 8,
+      height: h,
+      marginLeft: -4,
+      overflow: 'hidden',
+    })
+
+    let m = (300 - w) / 2
+    gsap.set(svgLine, {
+      width: '300px',
+      marginLeft: `-${m}`,
+    })
+
+    gsap.set(svgArrow, {
+      position: 'absolute',
+      height: f * 0.7,
+      width: f * 0.7,
+      opacity: 1,
+      right: -f,
+      bottom: f * 0.2,
+    })
+  }
+
+  size()
+
+  let resize = debounce(size, 250)
+  window.addEventListener('resize', resize)
 
   // Blue
   let yellow = '#f5da5a',

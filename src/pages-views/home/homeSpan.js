@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 const span = () => {
   const underlineModel = document.querySelector('.span-underline-container')
-  const arrowModel = document.querySelector('.span-arrow-container')
+  const arrowModel = document.querySelector('.span-arrow-container svg')
   let spans = gsap.utils.toArray('.span-link')
 
   if (touchDevice()) {

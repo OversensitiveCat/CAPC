@@ -11,11 +11,17 @@ const homeColor = () => {
     white = '#fcf8ef',
     wrapper = document.querySelector('.wrapper'),
     ticketHole = document.querySelectorAll('.ticket-hole'),
+    ticketBorders = document.querySelectorAll('.ticket-border'),
     hides = document.querySelectorAll('.img-hide')
 
   function color(c) {
     gsap.to(wrapper, { backgroundColor: c, duration: 0.8, overwrite: true })
     gsap.to(ticketHole, { backgroundColor: c, duration: 0.8, overwrite: true })
+    gsap.to(ticketBorders, {
+      backgroundColor: c,
+      duration: 0.8,
+      overwrite: true,
+    })
     gsap.to(hides, { backgroundColor: c, duration: 0.8 })
   }
 

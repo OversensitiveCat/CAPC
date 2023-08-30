@@ -20,8 +20,6 @@ const lieuEnter = () => {
     tagName: 'span',
   })
 
-  window.addEventListener('resize', () => para.revert())
-
   let tl = gsap.timeline({ paused: true })
   tl.from(chars[0], {
     xPercent: -150,

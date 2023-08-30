@@ -19,8 +19,6 @@ const aboutEnter = () => {
     tagName: 'span',
   })
 
-  window.addEventListener('resize', () => para.revert())
-
   let tl = gsap.timeline({ paused: true, delay: 0.2 })
   tl.from(chars[0], {
     xPercent: -150,

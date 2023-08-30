@@ -8,11 +8,11 @@ const press = () => {
   const items = gsap.utils.toArray('.press-item')
   items.forEach((i) => {
     let tl = gsap.timeline({ paused: true })
-    tl.from(i, { opacity: 0, yPercent: 100 })
+    tl.from(i, { opacity: 0, yPercent: 70 })
 
     ScrollTrigger.create({
       trigger: i,
-      start: 'top 80%',
+      start: 'top 85%',
       onEnter: () => tl.play(),
     })
 
