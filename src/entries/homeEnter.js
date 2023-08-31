@@ -1,7 +1,15 @@
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
 
+import { touchDevice } from '../utilities/utilities'
+
 const homeEnter = () => {
+  const hero = document.querySelector('.home-hero')
+
+  if (touchDevice()) {
+    gsap.set(hero, { height: window.innerHeight })
+  }
+
   const heading = new SplitType('.home-heading, .home-subheading', {
     types: 'chars',
     tagName: 'span',
@@ -153,7 +161,7 @@ const homeEnter = () => {
     .from(two.triBlue, { xPercent: 100, opacity: 0 })
     .from(two.triBlack, { xPercent: 100, opacity: 0 }, '<')
 
-  gsap.set('.home-hero', { opacity: 1 })
+  gsap.set(hero, { opacity: 1 })
   top.play()
   middle.play()
   bottom.play()
