@@ -1,7 +1,7 @@
 import { debounce } from './utilities'
 
 /* eslint-disable no-unused-vars */
-let breakpoints = [
+const breakpoints = [
   { media: 'none', d: [0, 299] },
   { media: 'mobileOne', d: [300, 479] },
   { media: 'mobileTwo', d: [480, 767] },
@@ -18,19 +18,24 @@ function findCurrent(el) {
 }
 
 const printMedia = () => {
-  let breakpoint
+  let previous = breakpoints.find(findCurrent),
+    current = previous
 
   function print() {
-    breakpoint = breakpoints.find(findCurrent)
-    console.log(`${breakpoint.media}: ${breakpoint.d[0]} – ${breakpoint.d[1]}`)
+    return console.log(`${current.media}: ${current.d[0]} – ${current.d[1]}`)
   }
-
   print()
 
-  let debouncePrint = debounce(print, 1000)
-  window.addEventListener('resize', debouncePrint)
+  function resize() {
+    current = breakpoints.find(findCurrent)
+    if (current !== previous) {
+      previous = current
+      return print()
+    } else return
+  }
+
+  let debounceResize = debounce(resize, 50)
+  window.addEventListener('resize', debounceResize)
 }
 
-const displayMedia = () => {}
-
-export { printMedia, displayMedia }
+export { printMedia }

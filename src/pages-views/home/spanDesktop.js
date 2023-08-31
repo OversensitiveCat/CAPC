@@ -1,7 +1,7 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import { debounce } from '../../utilities/utilities'
+import { refreshMedia } from '../../utilities/utilities'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -45,16 +45,13 @@ const spanDesktop = (span, lineModel, arrowModel) => {
       position: 'absolute',
       height: f * 0.7,
       width: f * 0.7,
-      opacity: 1,
       right: -f,
       bottom: f * 0.2,
     })
   }
 
   size()
-
-  let resize = debounce(size, 250)
-  window.addEventListener('resize', resize)
+  refreshMedia(size)
 
   // Blue
   let yellow = '#f5da5a',
