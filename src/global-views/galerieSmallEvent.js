@@ -8,6 +8,7 @@ gsap.registerPlugin(Observer)
 
 let scrollX, scrollMax, currentX
 let snap = gsap.utils.snap(0.1)
+let active = false
 
 const init = () => {
   let width = document.querySelector('.galerie-list').scrollWidth
@@ -62,6 +63,51 @@ const galerieSmallRight = () => {
   }
 }
 
+const galerieTouchLeft = () => {
+  if (active) {
+    return
+  }
+  active = true
+  gsap.delayedCall(0.5, () => {
+    active = false
+  })
+
+  if (currentX === 0) {
+    return
+  } else {
+    if (currentX === scrollMax) {
+      gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
+    }
+    currentX = snap(currentX - scrollX)
+    gsap.to('.galerie-list', { xPercent: currentX })
+    if (currentX === 0) {
+      gsap.to('.arrow-galerie-left-path', { fill: '#a7a7a7' })
+    }
+  }
+}
+const galerieTouchRight = () => {
+  if (active) {
+    return
+  }
+  active = true
+  gsap.delayedCall(0.5, () => {
+    active = false
+  })
+
+  if (scrollMax === currentX) {
+    return
+  } else {
+    if (currentX === 0) {
+      gsap.to('.arrow-galerie-left-path', { fill: '#000000' })
+    }
+    currentX = snap(currentX + scrollX)
+    gsap.to('.galerie-list', { xPercent: currentX })
+    if (currentX === scrollMax) {
+      gsap.to('.arrow-galerie-right-path', { fill: '#a7a7a7' })
+    }
+  }
+}
+
 const galerieSmallEvent = () => {
   init()
   resizeGalerie()
@@ -74,8 +120,8 @@ const galerieSmallEvent = () => {
       target: '.galerie-wrapper',
       type: 'touch',
       tolerance: 50,
-      onRight: () => galerieSmallLeft(),
-      onLeft: () => galerieSmallRight(),
+      onRight: () => galerieTouchLeft(),
+      onLeft: () => galerieTouchRight(),
     })
   }
 }
