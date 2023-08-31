@@ -72,7 +72,7 @@ const galerieTouchLeft = () => {
     active = false
   })
 
-  if (currentX <= 0) {
+  if (currentX >= 0) {
     return
   } else {
     if (currentX === scrollMax) {
