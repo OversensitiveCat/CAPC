@@ -72,14 +72,14 @@ const galerieTouchLeft = () => {
     active = false
   })
 
-  if (currentX === 0) {
+  if (currentX <= 0) {
     return
   } else {
     if (currentX === scrollMax) {
       gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
     }
     currentX = snap(currentX - scrollX)
-    gsap.to('.galerie-list', { xPercent: currentX })
+    gsap.to('.galerie-list', { xPercent: currentX, ease: 'power1.inOut' })
     if (currentX === 0) {
       gsap.to('.arrow-galerie-left-path', { fill: '#a7a7a7' })
     }
@@ -94,14 +94,14 @@ const galerieTouchRight = () => {
     active = false
   })
 
-  if (scrollMax === currentX) {
+  if (currentX <= scrollMax) {
     return
   } else {
     if (currentX === 0) {
       gsap.to('.arrow-galerie-left-path', { fill: '#000000' })
     }
     currentX = snap(currentX + scrollX)
-    gsap.to('.galerie-list', { xPercent: currentX })
+    gsap.to('.galerie-list', { xPercent: currentX, ease: 'power1.inOut' })
     if (currentX === scrollMax) {
       gsap.to('.arrow-galerie-right-path', { fill: '#a7a7a7' })
     }
