@@ -2,31 +2,40 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { touchDevice } from '../utilities/utilities'
+import { refreshMedia } from '../utilities/utilities'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function addArrow(span, arrow) {
-  const svg = arrow.cloneNode(true)
-  let path = svg.querySelector('path')
-  span.appendChild(svg)
+  const svgArrow = arrow.cloneNode(true)
+  let pathArrow = svgArrow.querySelector('path')
+  span.appendChild(svgArrow)
+  gsap.set(svgArrow, { position: 'absolute', opacity: 1 })
 
-  let h = span.offsetHeight
+  let f
 
-  gsap.set(svg, {
-    height: h,
-    width: 11,
-    opacity: 1,
-    right: -21,
-    top: 1,
-  })
+  function size() {
+    f = gsap.getProperty(span, 'fontSize')
+
+    gsap.set(svgArrow, {
+      position: 'absolute',
+      height: f * 0.7,
+      width: f * 0.7,
+      right: -f * 1.2,
+      bottom: f * 0.2,
+    })
+  }
+
+  size()
+  refreshMedia(size)
 
   let tl = gsap.timeline({ paused: true })
-  tl.to(path, {
+  tl.to(pathArrow, {
     fill: '#3867d9',
     duration: 0.3,
   })
     .to(
-      svg,
+      svgArrow,
       {
         xPercent: 10,
         scale: 1.1,
@@ -51,7 +60,7 @@ function addArrow(span, arrow) {
 
 const infos = () => {
   const spans = gsap.utils.toArray('.span-link-infos')
-  const arrowModel = document.querySelector('.span-arrow-container')
+  const arrowModel = document.querySelector('.span-arrow-container svg')
 
   spans.forEach((s) => addArrow(s, arrowModel))
 }

@@ -20,7 +20,7 @@ const exposFadeIn = () => {
         0
       )
 
-      if (!now.style.display == 'none') {
+      if (gsap.getProperty(now, 'display') !== 'none') {
         tl.fromTo(
           now,
           { rotate: 0, yPercent: -75, xPercent: 25, opacity: 0 },

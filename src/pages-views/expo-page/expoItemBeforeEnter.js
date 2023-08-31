@@ -25,7 +25,7 @@ const expoItemBeforeEnter = () => {
   let data = Number(heading.elements[0].getAttribute('data-wrap'))
   let wrap
 
-  if (typeof data === 'number') {
+  if (typeof data === 'number' && data > 0) {
     wrap = data
   } else wrap = 2
 

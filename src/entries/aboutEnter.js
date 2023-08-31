@@ -61,8 +61,9 @@ const aboutEnter = () => {
       },
       '<'
     )
+    .from('.about-description > *', { opacity: 0, yPercent: 50 }, '>-=0.5')
 
-  gsap.set('.about-hero', { opacity: 1 })
+  gsap.set('[data-anim]', { opacity: 1 })
 
   header()
   tl.play()

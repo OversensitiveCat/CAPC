@@ -18,7 +18,7 @@ const init = () => {
   let scrollMaxPercent = snap((scrollMaxPixel * 100) / divWidth)
 
   scrollX = snap(scrollMaxPercent / nbr)
-  scrollMax = scrollX * nbr
+  scrollMax = snap(scrollX * nbr)
   currentX = 0
 
   gsap.set('.arrow-galerie-left-path', { fill: '#a7a7a7' })
@@ -29,13 +29,12 @@ const resizeGalerie = () => {
     init()
     gsap.to('.galerie-list', { xPercent: currentX })
     gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
-    console.log('resize')
   }
   resizeX(resize, 250)
 }
 
 const galerieSmallLeft = () => {
-  if (currentX === 0) {
+  if (currentX >= 0) {
     return
   } else {
     if (currentX === scrollMax) {
@@ -49,7 +48,7 @@ const galerieSmallLeft = () => {
   }
 }
 const galerieSmallRight = () => {
-  if (scrollMax === currentX) {
+  if (currentX <= scrollMax) {
     return
   } else {
     if (currentX === 0) {
@@ -68,9 +67,6 @@ const galerieTouchLeft = () => {
     return
   }
   active = true
-  gsap.delayedCall(0.5, () => {
-    active = false
-  })
 
   if (currentX >= 0) {
     return
@@ -79,7 +75,13 @@ const galerieTouchLeft = () => {
       gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
     }
     currentX = snap(currentX - scrollX)
-    gsap.to('.galerie-list', { xPercent: currentX, ease: 'power1.inOut' })
+    gsap.to('.galerie-list', {
+      xPercent: currentX,
+      ease: 'power1.inOut',
+      onComplete: () => {
+        active = false
+      },
+    })
     if (currentX === 0) {
       gsap.to('.arrow-galerie-left-path', { fill: '#a7a7a7' })
     }
@@ -90,9 +92,6 @@ const galerieTouchRight = () => {
     return
   }
   active = true
-  gsap.delayedCall(0.5, () => {
-    active = false
-  })
 
   if (currentX <= scrollMax) {
     return
@@ -101,7 +100,13 @@ const galerieTouchRight = () => {
       gsap.to('.arrow-galerie-left-path', { fill: '#000000' })
     }
     currentX = snap(currentX + scrollX)
-    gsap.to('.galerie-list', { xPercent: currentX, ease: 'power1.inOut' })
+    gsap.to('.galerie-list', {
+      xPercent: currentX,
+      ease: 'power1.inOut',
+      onComplete: () => {
+        active = false
+      },
+    })
     if (currentX === scrollMax) {
       gsap.to('.arrow-galerie-right-path', { fill: '#a7a7a7' })
     }
@@ -119,7 +124,7 @@ const galerieSmallEvent = () => {
     Observer.create({
       target: '.galerie-wrapper',
       type: 'touch',
-      tolerance: 50,
+      tolerance: 20,
       onRight: () => galerieTouchLeft(),
       onLeft: () => galerieTouchRight(),
     })

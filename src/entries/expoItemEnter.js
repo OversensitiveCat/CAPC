@@ -11,35 +11,18 @@ const expoItemEnter = () => {
   let all = gsap.utils.toArray('.expo-page-main > *').splice(2)
 
   let tl = gsap.timeline({ paused: true, delay: 0.2 })
+
   tl.to('.expo-page-thumbnail-hide', { xPercent: 100 })
     .from(
       '.expo-page-expo',
       { opacity: 0, rotateY: 10, duration: 0.6 },
       '>-0.2'
     )
-    .from(
-      '.expo-page-heading-container .word',
-      {
-        opacity: 0,
-        xPercent: -20,
-        duration: 0.3,
-        stagger: 0.15,
-      },
-      '>-0.2'
-    )
-    .from(
-      '.expo-page-heading',
-      {
-        backgroundColor: 'transparent',
-        duration: 0.6,
-      },
-      '>-0.2'
-    )
-    .from(
-      '.expo-page-expo',
-      { backgroundColor: 'transparent', duration: 0.6 },
-      '<'
-    )
+    .from('.expo-page-heading', {
+      opacity: 0,
+      yPercent: 20,
+      duration: 0.5,
+    })
     .from('.expo-page-hero-legend', { opacity: 0, xPercent: -10 }, '>-0.5')
     .from('.link-back', { opacity: 0, xPercent: 10 }, '>-0.5')
     .from(subheading.words, {
