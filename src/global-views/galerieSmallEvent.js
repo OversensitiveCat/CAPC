@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { gsap } from 'gsap'
-import { Draggable } from 'gsap/Draggable'
 import { Observer } from 'gsap/Observer'
 
 import { resizeX, touchDevice } from '../utilities/utilities'
 
-gsap.registerPlugin(Observer, Draggable)
+gsap.registerPlugin(Observer)
 
 let scrollX, scrollMax, currentX
 let snap = gsap.utils.snap(0.1)
@@ -71,18 +70,13 @@ const galerieSmallEvent = () => {
   arrowLeft.addEventListener('click', () => galerieSmallLeft())
   arrowRight.addEventListener('click', () => galerieSmallRight())
   if (touchDevice()) {
-    Draggable.create('.galerie-list', {
-      type: 'x',
-      // bounds: document.querySelector('.galerie-wrapper'),
+    Observer.create({
+      target: '.galerie-wrapper',
+      type: 'touch',
+      tolerance: 50,
+      onRight: () => galerieSmallLeft(),
+      onLeft: () => galerieSmallRight(),
     })
-    console.log('touch')
-    // Observer.create({
-    //   target: '.galerie-wrapper',
-    //   type: 'touch',
-    //   tolerance: 50,
-    //   onRight: () => galerieSmallLeft(),
-    //   onLeft: () => galerieSmallRight(),
-    // })
   }
 }
 
