@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import Lenis from '@studio-freight/lenis'
 import { gsap } from 'gsap'
+import { Draggable } from 'gsap/Draggable'
 import { Observer } from 'gsap/Observer'
 
 import { resizeX, touchDevice } from '../utilities/utilities'
 
-gsap.registerPlugin(Observer)
+gsap.registerPlugin(Observer, Draggable)
 
 let scrollX, scrollMax, currentX
 let snap = gsap.utils.snap(0.1)
@@ -64,36 +64,26 @@ const galerieSmallRight = () => {
 }
 
 const galerieSmallEvent = () => {
-  let galerie = document.querySelector('.galerie-wrapper')
-  const lenis = new Lenis({
-    wrapper: galerie,
-    direction: 'horizontal',
-    gestureOrientation: 'horizontal',
-    smoothTouch: true,
-  })
-
-  function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
+  init()
+  resizeGalerie()
+  const arrowLeft = document.querySelector('.arrow-galerie-left')
+  const arrowRight = document.querySelector('.arrow-galerie-right')
+  arrowLeft.addEventListener('click', () => galerieSmallLeft())
+  arrowRight.addEventListener('click', () => galerieSmallRight())
+  if (touchDevice()) {
+    Draggable.create('.galerie-list', {
+      type: 'x',
+      // bounds: document.querySelector('.galerie-wrapper'),
+    })
+    console.log('touch')
+    // Observer.create({
+    //   target: '.galerie-wrapper',
+    //   type: 'touch',
+    //   tolerance: 50,
+    //   onRight: () => galerieSmallLeft(),
+    //   onLeft: () => galerieSmallRight(),
+    // })
   }
-
-  requestAnimationFrame(raf)
-  // init()
-  // resizeGalerie()
-  // const arrowLeft = document.querySelector('.arrow-galerie-left')
-  // const arrowRight = document.querySelector('.arrow-galerie-right')
-  // arrowLeft.addEventListener('click', () => galerieSmallLeft())
-  // arrowRight.addEventListener('click', () => galerieSmallRight())
-  // if (touchDevice()) {
-  //   console.log('touch')
-  //   Observer.create({
-  //     target: '.galerie-wrapper',
-  //     type: 'touch',
-  //     tolerance: 50,
-  //     onRight: () => galerieSmallLeft(),
-  //     onLeft: () => galerieSmallRight(),
-  //   })
-  // }
 }
 
 function keys(e) {
@@ -105,10 +95,10 @@ function keys(e) {
 }
 
 const galerieSmallAddKeyEvent = () => {
-  // window.addEventListener('keydown', keys)
+  window.addEventListener('keydown', keys)
 }
 const galerieSmallRemoveKeyEvent = () => {
-  // window.removeEventListener('keydown', keys)
+  window.removeEventListener('keydown', keys)
 }
 
 export {
