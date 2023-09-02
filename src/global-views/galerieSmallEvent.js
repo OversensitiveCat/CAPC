@@ -2,7 +2,7 @@
 import { gsap } from 'gsap'
 import { Observer } from 'gsap/Observer'
 
-import { resizeX, touchDevice } from '../utilities/utilities'
+import { debounce, touchDevice } from '../utilities/utilities'
 
 gsap.registerPlugin(Observer)
 
@@ -24,14 +24,22 @@ const init = () => {
   gsap.set('.arrow-galerie-left-path', { fill: '#a7a7a7' })
 }
 
-const resizeGalerie = () => {
-  function resize() {
-    init()
-    gsap.to('.galerie-list', { xPercent: currentX })
-    gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
-  }
-  resizeX(resize, 250)
+let previousWidth = window.innerWidth,
+  currentWidth
+
+function resize() {
+  init()
+  gsap.to('.galerie-list', { xPercent: currentX })
+  gsap.to('.arrow-galerie-right-path', { fill: '#000000' })
 }
+function onResizeX() {
+  currentWidth = window.innerWidth
+  if (previousWidth !== currentWidth) {
+    previousWidth = currentWidth
+    return resize()
+  } else return
+}
+const handleResize = debounce(onResizeX, 250)
 
 const galerieSmallLeft = () => {
   if (currentX >= 0) {
@@ -115,7 +123,6 @@ const galerieTouchRight = () => {
 
 const galerieSmallEvent = () => {
   init()
-  resizeGalerie()
   const arrowLeft = document.querySelector('.arrow-galerie-left')
   const arrowRight = document.querySelector('.arrow-galerie-right')
   arrowLeft.addEventListener('click', () => galerieSmallLeft())
@@ -129,6 +136,8 @@ const galerieSmallEvent = () => {
       onLeft: () => galerieTouchRight(),
     })
   }
+
+  window.addEventListener('resize', handleResize)
 }
 
 function keys(e) {
@@ -142,12 +151,9 @@ function keys(e) {
 const galerieSmallAddKeyEvent = () => {
   window.addEventListener('keydown', keys)
 }
-const galerieSmallRemoveKeyEvent = () => {
+const galerieCleanEvents = () => {
   window.removeEventListener('keydown', keys)
+  window.removeEventListener('resize', handleResize)
 }
 
-export {
-  galerieSmallEvent,
-  galerieSmallAddKeyEvent,
-  galerieSmallRemoveKeyEvent,
-}
+export { galerieSmallEvent, galerieSmallAddKeyEvent, galerieCleanEvents }

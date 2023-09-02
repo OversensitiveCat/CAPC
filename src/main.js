@@ -18,7 +18,7 @@ import footer from './global-views/footer'
 import {
   galerieSmallEvent,
   galerieSmallAddKeyEvent,
-  galerieSmallRemoveKeyEvent,
+  galerieCleanEvents,
 } from './global-views/galerieSmallEvent'
 import { setLenis } from './global-views/lenis'
 import nav from './navigation/nav'
@@ -85,7 +85,6 @@ barba.init({
       afterEnter() {
         about()
         sectionHeadings()
-        imgs()
         press()
         quote()
       },
@@ -109,7 +108,7 @@ barba.init({
         galerieSmallAddKeyEvent()
       },
       beforeLeave() {
-        galerieSmallRemoveKeyEvent()
+        galerieCleanEvents()
       },
     },
     {

@@ -7,7 +7,7 @@ const homeEnter = () => {
   const hero = document.querySelector('.home-hero')
 
   if (touchDevice()) {
-    gsap.set(hero, { height: window.innerHeight })
+    gsap.set(hero, { minHeight: window.innerHeight })
   }
 
   const heading = new SplitType('.home-heading, .home-subheading', {
@@ -18,38 +18,34 @@ const homeEnter = () => {
   let chars = [
     heading.chars.slice(0, 3).reverse(),
     heading.chars.slice(3, 6),
-    heading.chars.slice(6, 12).reverse(),
-    heading.chars.slice(12, 21),
-    heading.chars.slice(21, 28).reverse(),
-    heading.chars.slice(28, 34),
-    heading.chars.slice(34),
+    heading.chars.slice(6, 15).reverse(),
+    heading.chars.slice(15, 22),
+    heading.chars.slice(22, 29).reverse(),
+    heading.chars.slice(29, 36),
+    heading.chars.slice(36),
   ]
 
-  let middle = gsap.timeline({ paused: true })
+  let middle = gsap.timeline({ paused: true, delay: 0.6 })
   middle
-    .from(
-      chars[0],
-      {
-        xPercent: -150,
-        yPercent: -100,
-        scale: 0.8,
-        rotate: 30,
-        opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
-      },
-      '+=0.6'
-    )
+    .from(chars[0], {
+      xPercent: -125,
+      yPercent: -80,
+      scale: 0.8,
+      rotate: 30,
+      opacity: 0,
+      duration: 0.3,
+      stagger: { amount: 0.3 },
+    })
     .from(
       chars[1],
       {
         xPercent: 150,
-        yPercent: -100,
+        yPercent: -80,
         scale: 0.8,
         rotate: -30,
         opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
+        duration: 0.3,
+        stagger: { amount: 0.3 },
       },
       '<'
     )
@@ -59,10 +55,10 @@ const homeEnter = () => {
         xPercent: -150,
         scale: 0.8,
         opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
+        duration: 0.3,
+        stagger: { amount: 0.45 },
       },
-      '-=0.3'
+      '-=0.1'
     )
     .from(
       chars[3],
@@ -70,8 +66,8 @@ const homeEnter = () => {
         xPercent: 150,
         scale: 0.8,
         opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
+        duration: 0.3,
+        stagger: { amount: 0.45 },
       },
       '<'
     )
@@ -79,25 +75,25 @@ const homeEnter = () => {
       chars[4],
       {
         xPercent: -150,
-        yPercent: 100,
+        yPercent: 80,
         scale: 0.8,
         rotate: 30,
         opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
+        duration: 0.3,
+        stagger: { amount: 0.45 },
       },
-      '-=0.3'
+      '-=0.1'
     )
     .from(
       chars[5],
       {
         xPercent: 150,
-        yPercent: 100,
+        yPercent: 80,
         scale: 0.8,
         rotate: -30,
         opacity: 0,
-        duration: 0.25,
-        stagger: { amount: 0.25 },
+        duration: 0.3,
+        stagger: { amount: 0.45 },
       },
       '<'
     )
@@ -106,9 +102,9 @@ const homeEnter = () => {
       {
         opacity: 0,
         duration: 0.2,
-        stagger: { amount: 0.5 },
+        stagger: { amount: 0.45 },
       },
-      '+=0.5'
+      '+=0.3'
     )
 
   const one = {
@@ -119,21 +115,17 @@ const homeEnter = () => {
     quarterBlack: document.querySelector('.quarter2'),
   }
 
-  let top = gsap.timeline({ paused: true })
+  let top = gsap.timeline({ paused: true, delay: 0.6 })
   top
-    .from(
-      one.recYellow,
-      {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-      },
-      '+=0.6'
-    )
-    .from(one.circleRed, { yPercent: 100, opacity: 0, duration: 1 })
-    .from(one.quarterPink, { yPercent: 100, opacity: 0, duration: 1 }, '<')
-    .from(one.circleBlue, { xPercent: 100, opacity: 0, duration: 1 }, '<')
-    .from(one.quarterBlack, { xPercent: 100, opacity: 0, duration: 1 }, '<')
+    .from(one.recYellow, {
+      scale: 0,
+      opacity: 0,
+      duration: 1,
+    })
+    .from(one.circleRed, { yPercent: 100, opacity: 0, duration: 0.925 })
+    .from(one.quarterPink, { yPercent: 100, opacity: 0, duration: 0.925 }, '<')
+    .from(one.circleBlue, { xPercent: 100, opacity: 0, duration: 0.925 })
+    .from(one.quarterBlack, { xPercent: 100, opacity: 0, duration: 0.925 }, '<')
 
   const two = {
     triBlue: document.querySelector('.tri1'),
@@ -148,23 +140,32 @@ const homeEnter = () => {
     largeBlue: document.querySelector('.circle6'),
   }
 
-  let bottom = gsap.timeline({ paused: true })
+  let bottom = gsap.timeline({ paused: true, delay: 0.6 })
   bottom
-    .from(two.recYellowOne, { yPercent: -50, opacity: 0 }, '+=0.6')
-    .from(two.recYellowTwo, { yPercent: 50, opacity: 0 }, '<')
-    .from(two.largeBlack, { yPercent: 50, opacity: 0 })
-    .from(two.largeBlue, { yPercent: -50, opacity: 0 }, '<')
-    .from(two.circleRed, { xPercent: -100, opacity: 0 })
-    .from(two.quarterPink, { xPercent: -100, opacity: 0 }, '<')
-    .from(two.circlePink, { xPercent: 100, opacity: 0 }, '<')
-    .from(two.quarterRed, { xPercent: 100, opacity: 0 }, '<')
-    .from(two.triBlue, { xPercent: 100, opacity: 0 })
-    .from(two.triBlack, { xPercent: 100, opacity: 0 }, '<')
+    .from(two.recYellowOne, { yPercent: -50, opacity: 0, duration: 0.7125 })
+    .from(two.recYellowTwo, { yPercent: 50, opacity: 0, duration: 0.7125 }, '<')
+    .from(two.largeBlack, { yPercent: 50, opacity: 0, duration: 0.7125 })
+    .from(two.largeBlue, { yPercent: -50, opacity: 0, duration: 0.7125 }, '<')
+    .from(two.circleRed, { xPercent: -100, opacity: 0, duration: 0.7125 })
+    .from(
+      two.quarterPink,
+      { xPercent: -100, opacity: 0, duration: 0.7125 },
+      '<'
+    )
+    .from(two.circlePink, { xPercent: 100, opacity: 0, duration: 0.7125 }, '<')
+    .from(two.quarterRed, { xPercent: 100, opacity: 0, duration: 0.7125 }, '<')
+    .from(two.triBlue, { xPercent: 100, opacity: 0, duration: 0.7125 })
+    .from(two.triBlack, { xPercent: 100, opacity: 0, duration: 0.7125 }, '<')
 
   gsap.set(hero, { opacity: 1 })
   top.play()
   middle.play()
   bottom.play()
+  // console.log({
+  //   top: top.totalDuration(),
+  //   middle: middle.totalDuration(),
+  //   bottom: bottom.totalDuration(),
+  // })
 }
 
 export default homeEnter

@@ -57,11 +57,15 @@ const aboutEnter = () => {
         yPercent: 80,
         xPercent: -10,
         duration: 0.6,
-        stagger: { amount: 1.5 },
+        stagger: { amount: 0.7 },
       },
       '<'
     )
-    .from('.about-description > *', { opacity: 0, yPercent: 50 }, '>-=0.5')
+    .from(
+      '.about-description > *',
+      { opacity: 0, yPercent: 40, duration: 0.75 },
+      '>-=0.5'
+    )
 
   gsap.set('[data-anim]', { opacity: 1 })
 

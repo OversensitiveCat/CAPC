@@ -14,7 +14,7 @@ const exposFadeIn = () => {
 
       let tl = gsap.timeline({ paused: true })
 
-      tl.to(hide, { xPercent: 100, duration: 1.5, ease: 'power2.out' }).from(
+      tl.to(hide, { xPercent: 100, duration: 1.5, ease: 'power2.inOut' }).from(
         bottom,
         { yPercent: 50, opacity: 0, duration: 1 },
         0

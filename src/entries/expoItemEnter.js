@@ -12,7 +12,7 @@ const expoItemEnter = () => {
 
   let tl = gsap.timeline({ paused: true, delay: 0.2 })
 
-  tl.to('.expo-page-thumbnail-hide', { xPercent: 100 })
+  tl.to('.expo-page-thumbnail-hide', { xPercent: 100, duration: 0.75 })
     .from(
       '.expo-page-expo',
       { opacity: 0, rotateY: 10, duration: 0.6 },
