@@ -15,11 +15,6 @@ import lieuEnter from './entries/lieuEnter'
 import mentionsEnter from './entries/mentionsEnter'
 import setCursor from './global-views/cursor'
 import footer from './global-views/footer'
-import {
-  galerieSmallEvent,
-  galerieSmallAddKeyEvent,
-  galerieCleanEvents,
-} from './global-views/galerieSmallEvent'
 import { setLenis } from './global-views/lenis'
 import nav from './navigation/nav'
 import navHover from './navigation/navHover'
@@ -27,6 +22,7 @@ import navInit from './navigation/navInit'
 import about from './pages-views/about'
 import expoItem from './pages-views/expo-page/expoItem'
 import expoItemBeforeEnter from './pages-views/expo-page/expoItemBeforeEnter'
+import { expoItemClean } from './pages-views/expo-page/item-events'
 import expos from './pages-views/expos/expos'
 import home from './pages-views/home/home'
 import { homeClean } from './pages-views/home/homeColor'
@@ -104,11 +100,9 @@ barba.init({
       afterEnter() {
         expoItem()
         sectionHeadings()
-        galerieSmallEvent()
-        galerieSmallAddKeyEvent()
       },
-      beforeLeave() {
-        galerieCleanEvents()
+      afterLeave() {
+        expoItemClean()
       },
     },
     {

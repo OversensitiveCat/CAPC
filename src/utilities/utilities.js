@@ -21,20 +21,24 @@ const touchDevice = () => {
 }
 
 const resizeX = (func, delay) => {
-  let previousWidth = window.innerWidth,
-    currentWidth
-  function onResize() {
-    currentWidth = window.innerWidth
+  if (!delay) {
+    delay = 0
+  }
+  let timeoutId
+  let previousWidth = window.innerWidth
+
+  const onResize = () => {
+    const currentWidth = window.innerWidth
     if (previousWidth !== currentWidth) {
       previousWidth = currentWidth
-      return func()
-    } else return
+      func()
+    }
   }
 
-  if (delay) {
-    let handleResize = debounce(onResize, delay)
-    return window.addEventListener('resize', handleResize)
-  } else return window.addEventListener('resize', onResize)
+  return () => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => onResize(), delay)
+  }
 }
 
 const isDesktop = () => {
