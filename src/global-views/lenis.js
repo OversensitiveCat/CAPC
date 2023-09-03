@@ -4,7 +4,8 @@ import Lenis from '@studio-freight/lenis'
 const lenis = new Lenis({
   ease: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
   lerp: 0.075,
-  wheelMultiplier: 0.35,
+  wheelMultiplier: 1,
+  normalizeWheel: true,
 })
 
 const setLenis = () => {

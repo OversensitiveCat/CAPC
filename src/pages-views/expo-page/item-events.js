@@ -297,6 +297,7 @@ const events = () => {
     })
   }
   if (isDesktop() && !touchDevice()) {
+    console.log('light')
     // Lightbox
     imgs.forEach((img) =>
       img.addEventListener('click', () => toogleLightbox(img))

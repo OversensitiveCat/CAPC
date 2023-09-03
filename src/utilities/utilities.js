@@ -42,9 +42,7 @@ const resizeX = (func, delay) => {
 }
 
 const isDesktop = () => {
-  if (window.innerWidth > 991) {
-    return true
-  } else return false
+  return window.innerWidth > 991
 }
 
 const breakpoints = [
