@@ -2,13 +2,12 @@
 import { gsap } from 'gsap'
 import { Observer } from 'gsap/Observer'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import timeline from './item-lightbox-timeline'
 import { lenis } from '../../global-views/lenis'
 import { isDesktop, touchDevice, resizeX } from '../../utilities/utilities'
 
-gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger)
+gsap.registerPlugin(Observer, ScrollToPlugin)
 
 let currentImg
 let scrollX
@@ -255,7 +254,6 @@ function close() {
     window.removeEventListener('keydown', keysLightbox)
     window.addEventListener('keydown', keysGalerie)
     reset()
-    ScrollTrigger.refresh()
     gsap.to(items, { opacity: 1, delay: 0.2 })
   })
 }

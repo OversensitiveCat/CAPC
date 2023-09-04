@@ -37,7 +37,6 @@ function timeline(wrapper, list, lines) {
       {
         width: '100%',
         duration: 0.4,
-        backgroundColor: 'pink',
       },
       0
     )
