@@ -17,7 +17,6 @@ function timeline(wrapper, list, lines) {
   })
     .to(list, { gap: 0, duration: 0.4 }, 0)
     .to('.wrapper', { backgroundColor: '#ebebeb', duration: 0.4 }, 0)
-    .set('body', { overflow: 'hidden' }, 0)
     .to('.header', { autoAlpha: 0, yPercent: -100, duration: 0.4 }, 0)
     .set('.close-lightbox-container', { display: 'flex' }, 0)
     .set('.arrow-lightbox-container', { display: 'flex' }, 0)
@@ -37,9 +36,14 @@ function timeline(wrapper, list, lines) {
       '.galerie-item',
       {
         width: '100%',
-        height: () => window.innerHeight * 0.9 - 192,
         duration: 0.4,
+        backgroundColor: 'pink',
       },
+      0
+    )
+    .to(
+      '.galerie-img',
+      { height: () => window.innerHeight * 0.9 - 192, duration: 0.4 },
       0
     )
     .to('.arrow-lightbox-container', { opacity: 1, duration: 0.4 }, 0.5)

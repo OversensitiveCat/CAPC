@@ -49,7 +49,10 @@ function init() {
   wrapper = document.querySelector('.expo-page-galerie')
   cross = document.querySelector('.close-lightbox-container')
   lines = gsap.utils.toArray('.close-lightbox-line')
-  tl = timeline(wrapper, list, lines)
+
+  if (isDesktop() && !touchDevice()) {
+    tl = timeline(wrapper, list, lines)
+  }
 
   // Data
   nbr = items.length
@@ -297,7 +300,6 @@ const events = () => {
     })
   }
   if (isDesktop() && !touchDevice()) {
-    console.log('light')
     // Lightbox
     imgs.forEach((img) =>
       img.addEventListener('click', () => toogleLightbox(img))
