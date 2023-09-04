@@ -28,6 +28,7 @@ const footer = () => {
   let logo = gsap.utils.toArray('.footer .footer-logo-char')
   let sublogo = logo.splice(4)
   let dash = gsap.utils.toArray('.footer .dash')
+  let capcLogo = document.querySelector('.footer .logo')
   let smallLinks = gsap.utils.toArray('.footer-bottom .footer-link-small')
   let svg = {
     button: document.querySelector('.arrow-back-to-top svg'),
@@ -67,9 +68,17 @@ const footer = () => {
       let { desktop, tabMob } = context.conditions
 
       if (desktop) {
-        footerDesktop(logo, sublogo, chars, text, smallLinks, svg.button)
+        footerDesktop(
+          logo,
+          sublogo,
+          chars,
+          text,
+          smallLinks,
+          svg.button,
+          capcLogo
+        )
       } else if (tabMob) {
-        footerMob(box, chars, text, dash, smallLinks, svg.button)
+        footerMob(box, chars, text, dash, smallLinks, svg.button, capcLogo)
       }
     }
   )

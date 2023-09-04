@@ -3,7 +3,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
+const footerDesktop = (
+  logo,
+  sublogo,
+  chars,
+  text,
+  smallLinks,
+  svg,
+  capcLogo
+) => {
   // Timelines
   let tlBottom = gsap.timeline({ paused: true })
   tlBottom
@@ -101,6 +109,14 @@ const footerDesktop = (logo, sublogo, chars, text, smallLinks, svg) => {
       {
         opacity: 0,
         yPercent: 20,
+        duration: 0.6,
+      },
+      '<'
+    )
+    .from(
+      capcLogo,
+      {
+        opacity: 0,
         duration: 0.6,
       },
       '<'
