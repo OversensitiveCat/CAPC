@@ -188,9 +188,10 @@ const footerDesktop = (
     .from('.footer-dash-pointed', { height: 0, duration: 0.6 }, '-=0.6')
 
   // Triggers
-  let triggerBottom = text[5][0].getBoundingClientRect().bottom
+  let triggerBottom = capcLogo.getBoundingClientRect().top
   let triggerTop =
-    document.querySelector('.footer-top').getBoundingClientRect().bottom - 30
+    document.querySelector('.footer-logo-container').getBoundingClientRect()
+      .bottom - 30
 
   function trigger(tl, tri) {
     ScrollTrigger.create({
