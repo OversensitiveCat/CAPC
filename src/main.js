@@ -31,10 +31,7 @@ import lieu from './pages-views/lieu/lieu'
 import mentions from './pages-views/mentions'
 import { navLeave, navEnter } from './transitions/navTransitions'
 import { transitionEnter, transitionLeave } from './transitions/transitions'
-import { printMedia } from './utilities/dev'
 import { touchDevice } from './utilities/utilities'
-
-printMedia()
 
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual'

@@ -41,8 +41,11 @@ const footer = () => {
   // Back-to-top
   let d =
     Math.round(
-      document.querySelector('.body').scrollHeight / window.innerHeight
-    ) / 4
+      (document.querySelector('.body').scrollHeight /
+        window.innerHeight /
+        3.5) *
+        10
+    ) / 10
 
   svg.button.addEventListener('click', () =>
     gsap.to(window, { scrollTo: 0, duration: d, ease: 'power2.inOut' })
