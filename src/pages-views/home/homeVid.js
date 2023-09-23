@@ -3,20 +3,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-import vid from '../../data/presentation.webm'
+// import vid from '../../data/presentation.webm'
 
 const homeVid = () => {
-  const url = new URL(vid, import.meta.url).href
-  console.log(url)
+  // const url = new URL(vid, import.meta.url).href
+  // console.log(url)
 
   const v = document.querySelector('#home-vid')
-  if (v.readyState >= 3) {
-    console.log('v is already loaded')
-  } else {
-    v.addEventListener('canplaythrough', function () {
-      console.log('v loaded successfully')
-    })
-  }
+  // if (v.readyState >= 3) {
+  //   console.log('v is already loaded')
+  // } else {
+  //   v.addEventListener('canplaythrough', function () {
+  //     console.log('v loaded successfully')
+  //   })
+  // }
 
   v.onerror = function () {
     console.log('Error loading video')
