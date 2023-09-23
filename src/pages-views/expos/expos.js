@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import exposEyes from './exposEyes'
 import exposFadeIn from './exposFadeIn'
 import exposHover from './exposHover'

@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import SplitType from 'split-type'
 
 import { homeColor } from './homeColor'
@@ -6,6 +7,7 @@ import header from './homeHeader'
 import shapes from './homeShapes'
 import span from './homeSpan'
 import quote from '../../animations/quote'
+import homeVid from './homeVid'
 
 const home = () => {
   const paras = new SplitType('[data-anim="quote"]', {
@@ -19,6 +21,7 @@ const home = () => {
   expos()
   shapes()
   homeColor()
+  homeVid()
 }
 
 export default home

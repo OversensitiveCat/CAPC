@@ -4,9 +4,9 @@ import { Observer } from 'gsap/Observer'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import timeline from './item-lightbox-timeline'
 import { lenis } from '../../global-views/lenis'
 import { isDesktop, touchDevice, resizeX } from '../../utilities/utilities'
+import timeline from './item-lightbox-timeline'
 
 gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger)
 

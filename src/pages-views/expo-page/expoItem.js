@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { gsap } from 'gsap'
 
 import { events } from './item-events'

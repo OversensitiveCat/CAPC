@@ -1,11 +1,12 @@
 import { gsap } from 'gsap'
 
+import { touchDevice } from '../../utilities/utilities'
 import { fadeIn, hover } from './homeExposAnim'
 import { clean, reverse } from './reverseItems'
-import { touchDevice } from '../../utilities/utilities'
 
 const expos = () => {
   let items = gsap.utils.toArray('.home-expo-item')
+  let vidItem = document.querySelector('.home-expo-vid-item')
 
   // Reverse items
   let mm = gsap.matchMedia()
@@ -42,6 +43,14 @@ const expos = () => {
     })
   } else {
     gsap.set('.home-expo', { display: 'none' })
+  }
+
+  // Check if vid-item is display
+  if (vidItem) {
+    fadeIn(vidItem, true)
+    if (!touchDevice()) {
+      hover(vidItem)
+    }
   }
 }
 
