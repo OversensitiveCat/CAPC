@@ -2,10 +2,10 @@ import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import SplitType from 'split-type'
 
-import { touchDevice } from '../utilities/utilities'
 import footerClick from './footerClick'
 import footerDesktop from './footerDesktop'
 import footerMob from './footerMob'
+import { touchDevice } from '../utilities/utilities'
 
 gsap.registerPlugin(ScrollToPlugin)
 

@@ -1,8 +1,8 @@
 import { gsap } from 'gsap'
 
-import { touchDevice } from '../../utilities/utilities'
 import { fadeIn, hover } from './homeExposAnim'
 import { clean, reverse } from './reverseItems'
+import { touchDevice } from '../../utilities/utilities'
 
 const expos = () => {
   let items = gsap.utils.toArray('.home-expo-item')
