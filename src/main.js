@@ -34,358 +34,358 @@ import { transitionEnter, transitionLeave } from './transitions/transitions'
 import { touchDevice } from './utilities/utilities'
 
 // Disable all the script in webflow edit-mode
-if (!document.querySelector('html').classList.contains('w-editor')) {
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual'
+setTimeout(() => {
+  if (document.querySelector('html').classList.contains('w-editor')) {
+    console.log('webflow edit mode')
+
+    const el = document.createElement('style')
+    el.innerText =
+      '[data-anim] {opacity: 1;}.img-hide, .expo-page-thumbnail-hide {opacity: 0}'
+
+    document.head.appendChild(el)
   }
+}, 2000)
 
-  if (!touchDevice()) {
-    navHover()
-  }
-  navInit()
-  setLenis()
-  setCursor()
-
-  window.addEventListener('unload', () => window.scrollTo(0, 0))
-
-  barba.hooks.afterEnter((data) => {
-    nav(data.next.namespace)
-    footer()
-  })
-
-  barba.use(barbaPrefetch)
-  barba.init({
-    timeout: 4000,
-    preventRunning: true,
-    views: [
-      {
-        namespace: 'home',
-        afterEnter() {
-          home()
-          buttons()
-          imgs()
-        },
-        afterLeave() {
-          homeClean()
-        },
-      },
-      {
-        namespace: 'lieu',
-        afterEnter() {
-          lieu()
-          sectionHeadings()
-          imgs()
-          quote()
-        },
-      },
-      {
-        namespace: 'about',
-        afterEnter() {
-          about()
-          sectionHeadings()
-          press()
-          quote()
-        },
-      },
-      {
-        namespace: 'expos',
-        afterEnter() {
-          expos()
-          sectionHeadings()
-        },
-      },
-      {
-        namespace: 'expo-page',
-        beforeEnter() {
-          expoItemBeforeEnter()
-        },
-        afterEnter() {
-          expoItem()
-          sectionHeadings()
-        },
-        afterLeave() {
-          expoItemClean()
-        },
-      },
-      {
-        namespace: 'mentions',
-        afterEnter() {
-          mentions()
-        },
-      },
-      {
-        namespace: 'infos',
-        afterEnter() {
-          infos()
-          sectionHeadings()
-          imgs()
-        },
-      },
-    ],
-    transitions: [
-      {
-        name: 'home',
-        to: { namespace: ['home'] },
-        once() {
-          homeEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(homeEnter)
-        },
-      },
-      {
-        name: 'home-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return trigger.classList && trigger.classList.contains('nav-link')
-          },
-        },
-        to: { namespace: ['home'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(homeEnter)
-        },
-      },
-      {
-        name: 'lieu',
-        to: { namespace: ['lieu'] },
-        once() {
-          lieuEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(lieuEnter)
-        },
-      },
-      {
-        name: 'lieu-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return trigger.classList && trigger.classList.contains('nav-link')
-          },
-        },
-        to: { namespace: ['lieu'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(lieuEnter)
-        },
-      },
-      {
-        name: 'about',
-        to: { namespace: ['about'] },
-        once() {
-          aboutEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(aboutEnter)
-        },
-      },
-      {
-        name: 'about-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return trigger.classList && trigger.classList.contains('nav-link')
-          },
-        },
-        to: { namespace: ['about'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(aboutEnter)
-        },
-      },
-      {
-        name: 'expos',
-        to: { namespace: ['expos'] },
-        once() {
-          exposEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(exposEnter)
-        },
-      },
-      {
-        name: 'expos-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return trigger.classList && trigger.classList.contains('nav-link')
-          },
-        },
-        to: { namespace: ['expos'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(exposEnter)
-        },
-      },
-      {
-        name: 'expo-page',
-        to: { namespace: ['expo-page'] },
-        once() {
-          expoItemEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(expoItemEnter)
-        },
-      },
-      {
-        name: 'mentions',
-        to: { namespace: ['mentions'] },
-        once() {
-          mentionsEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(mentionsEnter)
-        },
-      },
-      {
-        name: 'mentions-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return (
-              trigger.classList &&
-              trigger.classList.contains('menu-credits-link')
-            )
-          },
-        },
-        to: { namespace: ['mentions'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(mentionsEnter)
-        },
-      },
-      {
-        name: 'infos',
-        to: { namespace: ['infos'] },
-        once() {
-          infosEnter()
-        },
-        leave(data) {
-          const done = this.async()
-          transitionLeave(data, done)
-        },
-        enter() {
-          transitionEnter(infosEnter)
-        },
-      },
-      {
-        name: 'infos-nav',
-        from: {
-          custom: ({ trigger }) => {
-            return trigger.classList && trigger.classList.contains('nav-link')
-          },
-        },
-        to: { namespace: ['infos'] },
-        leave(data) {
-          const done = this.async()
-          navLeave(data, done)
-        },
-        enter() {
-          navEnter(infosEnter)
-        },
-      },
-      {
-        name: 'self',
-        leave(data) {
-          if (data.trigger.classList.contains('nav-link')) {
-            const done = this.async()
-            navLeave(data, done)
-          } else {
-            const done = this.async()
-            transitionLeave(data, done)
-          }
-        },
-        enter(data) {
-          if (data.trigger.classList.contains('nav-link')) {
-            switch (data.current.namespace) {
-              case 'home':
-                navEnter(homeEnter)
-                break
-              case 'lieu':
-                navEnter(lieuEnter)
-                break
-              case 'about':
-                navEnter(aboutEnter)
-                break
-              case 'expos':
-                navEnter(exposEnter)
-                break
-              case 'mentions':
-                navEnter(mentionsEnter)
-                break
-              case 'infos':
-                navEnter(infosEnter)
-                break
-            }
-          } else {
-            switch (data.current.namespace) {
-              case 'home':
-                transitionEnter(homeEnter)
-                break
-              case 'lieu':
-                transitionEnter(lieuEnter)
-                break
-              case 'about':
-                transitionEnter(aboutEnter)
-                break
-              case 'expos':
-                transitionEnter(exposEnter)
-                break
-              case 'mentions':
-                transitionEnter(mentionsEnter)
-                break
-              case 'infos':
-                transitionEnter(infosEnter)
-                break
-            }
-          }
-        },
-      },
-    ],
-  })
-} else {
-  console.log('webflow edit mode')
-
-  const el = document.createElement('style')
-
-  el.innerText =
-    '[data-anim] {opacity: 1;}.img-hide, .expo-page-thumbnail-hide {opacity: 0}'
-
-  document.head.appendChild(el)
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual'
 }
+
+if (!touchDevice()) {
+  navHover()
+}
+navInit()
+setLenis()
+setCursor()
+
+window.addEventListener('unload', () => window.scrollTo(0, 0))
+
+barba.hooks.afterEnter((data) => {
+  nav(data.next.namespace)
+  footer()
+})
+
+barba.use(barbaPrefetch)
+barba.init({
+  timeout: 4000,
+  preventRunning: true,
+  views: [
+    {
+      namespace: 'home',
+      afterEnter() {
+        home()
+        buttons()
+        imgs()
+      },
+      afterLeave() {
+        homeClean()
+      },
+    },
+    {
+      namespace: 'lieu',
+      afterEnter() {
+        lieu()
+        sectionHeadings()
+        imgs()
+        quote()
+      },
+    },
+    {
+      namespace: 'about',
+      afterEnter() {
+        about()
+        sectionHeadings()
+        press()
+        quote()
+      },
+    },
+    {
+      namespace: 'expos',
+      afterEnter() {
+        expos()
+        sectionHeadings()
+      },
+    },
+    {
+      namespace: 'expo-page',
+      beforeEnter() {
+        expoItemBeforeEnter()
+      },
+      afterEnter() {
+        expoItem()
+        sectionHeadings()
+      },
+      afterLeave() {
+        expoItemClean()
+      },
+    },
+    {
+      namespace: 'mentions',
+      afterEnter() {
+        mentions()
+      },
+    },
+    {
+      namespace: 'infos',
+      afterEnter() {
+        infos()
+        sectionHeadings()
+        imgs()
+      },
+    },
+  ],
+  transitions: [
+    {
+      name: 'home',
+      to: { namespace: ['home'] },
+      once() {
+        homeEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(homeEnter)
+      },
+    },
+    {
+      name: 'home-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return trigger.classList && trigger.classList.contains('nav-link')
+        },
+      },
+      to: { namespace: ['home'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(homeEnter)
+      },
+    },
+    {
+      name: 'lieu',
+      to: { namespace: ['lieu'] },
+      once() {
+        lieuEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(lieuEnter)
+      },
+    },
+    {
+      name: 'lieu-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return trigger.classList && trigger.classList.contains('nav-link')
+        },
+      },
+      to: { namespace: ['lieu'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(lieuEnter)
+      },
+    },
+    {
+      name: 'about',
+      to: { namespace: ['about'] },
+      once() {
+        aboutEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(aboutEnter)
+      },
+    },
+    {
+      name: 'about-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return trigger.classList && trigger.classList.contains('nav-link')
+        },
+      },
+      to: { namespace: ['about'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(aboutEnter)
+      },
+    },
+    {
+      name: 'expos',
+      to: { namespace: ['expos'] },
+      once() {
+        exposEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(exposEnter)
+      },
+    },
+    {
+      name: 'expos-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return trigger.classList && trigger.classList.contains('nav-link')
+        },
+      },
+      to: { namespace: ['expos'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(exposEnter)
+      },
+    },
+    {
+      name: 'expo-page',
+      to: { namespace: ['expo-page'] },
+      once() {
+        expoItemEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(expoItemEnter)
+      },
+    },
+    {
+      name: 'mentions',
+      to: { namespace: ['mentions'] },
+      once() {
+        mentionsEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(mentionsEnter)
+      },
+    },
+    {
+      name: 'mentions-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return (
+            trigger.classList && trigger.classList.contains('menu-credits-link')
+          )
+        },
+      },
+      to: { namespace: ['mentions'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(mentionsEnter)
+      },
+    },
+    {
+      name: 'infos',
+      to: { namespace: ['infos'] },
+      once() {
+        infosEnter()
+      },
+      leave(data) {
+        const done = this.async()
+        transitionLeave(data, done)
+      },
+      enter() {
+        transitionEnter(infosEnter)
+      },
+    },
+    {
+      name: 'infos-nav',
+      from: {
+        custom: ({ trigger }) => {
+          return trigger.classList && trigger.classList.contains('nav-link')
+        },
+      },
+      to: { namespace: ['infos'] },
+      leave(data) {
+        const done = this.async()
+        navLeave(data, done)
+      },
+      enter() {
+        navEnter(infosEnter)
+      },
+    },
+    {
+      name: 'self',
+      leave(data) {
+        if (data.trigger.classList.contains('nav-link')) {
+          const done = this.async()
+          navLeave(data, done)
+        } else {
+          const done = this.async()
+          transitionLeave(data, done)
+        }
+      },
+      enter(data) {
+        if (data.trigger.classList.contains('nav-link')) {
+          switch (data.current.namespace) {
+            case 'home':
+              navEnter(homeEnter)
+              break
+            case 'lieu':
+              navEnter(lieuEnter)
+              break
+            case 'about':
+              navEnter(aboutEnter)
+              break
+            case 'expos':
+              navEnter(exposEnter)
+              break
+            case 'mentions':
+              navEnter(mentionsEnter)
+              break
+            case 'infos':
+              navEnter(infosEnter)
+              break
+          }
+        } else {
+          switch (data.current.namespace) {
+            case 'home':
+              transitionEnter(homeEnter)
+              break
+            case 'lieu':
+              transitionEnter(lieuEnter)
+              break
+            case 'about':
+              transitionEnter(aboutEnter)
+              break
+            case 'expos':
+              transitionEnter(exposEnter)
+              break
+            case 'mentions':
+              transitionEnter(mentionsEnter)
+              break
+            case 'infos':
+              transitionEnter(infosEnter)
+              break
+          }
+        }
+      },
+    },
+  ],
+})
