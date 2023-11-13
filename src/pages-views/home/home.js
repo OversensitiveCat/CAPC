@@ -5,7 +5,6 @@ import expos from './homeExpos'
 import header from './homeHeader'
 import shapes from './homeShapes'
 import span from './homeSpan'
-import homeVid from './homeVid'
 import quote from '../../animations/quote'
 
 const home = () => {
@@ -20,7 +19,6 @@ const home = () => {
   expos()
   shapes()
   homeColor()
-  homeVid()
 }
 
 export default home

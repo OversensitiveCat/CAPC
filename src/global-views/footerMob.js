@@ -178,7 +178,6 @@ const footerMob = (
   // When the screen is higher than the footer
   if (touchDevice()) {
     if (footer.offsetHeight > window.innerHeight - 75) {
-      console.log(true)
       gsap.set(footer, { position: 'static' })
       triggerBottom = box[5]
       triggerMiddle = box[2]
