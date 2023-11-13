@@ -30,7 +30,7 @@ const footer = () => {
   let logo = gsap.utils.toArray('.footer .footer-logo-char')
   let sublogo = logo.splice(4)
   let dash = gsap.utils.toArray('.footer .dash')
-  let capcLogo = document.querySelector('.footer-capc-logo')
+  let outLogos = gsap.utils.toArray('.footer-logos-link')
   let smallLinks = gsap.utils.toArray('.footer-credits .footer-link-small')
   let svg = {
     button: document.querySelector('.arrow-back-to-top svg'),
@@ -83,7 +83,7 @@ const footer = () => {
           text,
           smallLinks,
           svg.button,
-          capcLogo
+          outLogos
         )
       } else if (tabMob) {
         footerMob(
@@ -94,7 +94,7 @@ const footer = () => {
           dash,
           smallLinks,
           svg.button,
-          capcLogo
+          outLogos
         )
       }
     }

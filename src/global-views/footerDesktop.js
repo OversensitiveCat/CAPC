@@ -10,7 +10,7 @@ const footerDesktop = (
   text,
   smallLinks,
   svg,
-  capcLogo
+  outLogos
 ) => {
   // Timelines
   let tlBottom = gsap.timeline({ paused: true })
@@ -114,12 +114,14 @@ const footerDesktop = (
       '<'
     )
     .from(
-      capcLogo,
+      outLogos,
       {
         opacity: 0,
         duration: 0.6,
+        stagger: 0.1,
+        xPercent: -50,
       },
-      '<'
+      '-=1'
     )
 
   let tlTop = gsap.timeline({ paused: true })
@@ -188,7 +190,9 @@ const footerDesktop = (
     .from('.footer-dash-pointed', { height: 0, duration: 0.6 }, '-=0.6')
 
   // Triggers
-  let triggerBottom = capcLogo.getBoundingClientRect().top
+  let triggerBottom = document
+    .querySelector('.footer-logos-container')
+    .getBoundingClientRect().top
   let triggerTop =
     document.querySelector('.footer-logo-container').getBoundingClientRect()
       .bottom - 30

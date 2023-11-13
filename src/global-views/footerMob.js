@@ -13,7 +13,7 @@ const footerMob = (
   dash,
   smallLinks,
   svg,
-  capcLogo
+  outLogos
 ) => {
   // Timelines
   let tlBottom = gsap.timeline({ paused: true })
@@ -59,7 +59,7 @@ const footerMob = (
       '<'
     )
     .from(
-      capcLogo,
+      outLogos,
       {
         opacity: 0,
         yPercent: 20,
