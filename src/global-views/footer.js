@@ -2,7 +2,6 @@ import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import SplitType from 'split-type'
 
-import footerClick from './footerClick'
 import footerDesktop from './footerDesktop'
 import footerMob from './footerMob'
 import { touchDevice } from '../utilities/utilities'
@@ -23,7 +22,7 @@ const footer = () => {
   let text = box.map((box) => {
     return Array.from(
       box.querySelectorAll(
-        '.footer-link, .footer-text, .mail-footer, .mail-footer-click, .footer-link-small'
+        '.footer-link, .footer-text, .newsletter-link, .footer-link-small'
       )
     )
   })
@@ -61,9 +60,6 @@ const footer = () => {
     svg.button.addEventListener('mouseenter', () => svgHover.play())
     svg.button.addEventListener('mouseleave', () => svgHover.reverse())
   }
-
-  // Click
-  footerClick()
 
   // Responsive timelines
   let mm = gsap.matchMedia()
